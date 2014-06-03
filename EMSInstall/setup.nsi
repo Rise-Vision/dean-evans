@@ -1,3 +1,8 @@
+# Copyright © 2010 - June 2014 Rise Vision Incorporated.
+# Use of this software is governed by the GPLv3 license
+# (reproduced in the LICENSE file).
+
+
 ################################################################################
 # Rise Dean Evans EMS Data Service Installer                                   #
 # Copyright (C) 2011 Rise Display Inc                                          #
