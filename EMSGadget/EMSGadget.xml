@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="Dean Evans Events Gadget" height="400" title_url="http://wp.me/P1cnKK-PM">
+        <Require feature="rpc" />
+        <Optional feature="rise-api">
+            <Param name="reports_ready" />
+        </Optional>
+    </ModulePrefs>
+    <UserPref name="id" display_name="ID" datatype="hidden" default_value="" />
+    <UserPref name="ems_url" display_name="Dean Evans EMS Source URL" datatype="hidden" default_value="http://www.dea.com/Q2DCf5Tj90/service.asmx" />
+	<UserPref name="username" display_name="Username" datatype="hidden" default_value="Rise_Display" />
+	<UserPref name="password" display_name="Password" datatype="hidden" default_value="Shawnee" />
+	<UserPref name="building_id" display_name="Building ID" required="true" default_value="" datatype="int"/>
+	
+	<UserPref name="refresh_interval" display_name="Data Refresh Interval (minutes)" default_value="5" datatype="enum">
+		<EnumValue value="0" display_value="do not refresh" />
+        <EnumValue value="1" display_value="1" />
+		<EnumValue value="5" display_value="5" />
+		<EnumValue value="30" display_value="30" />
+		<EnumValue value="60" display_value="60" />
+    </UserPref>
+	
+	<UserPref name="visual_option" display_name="Visual Option" datatype="enum">
+        <EnumValue value="tabs" display_value="Tabs" />
+		<EnumValue value="list" display_value="List" />
+    </UserPref>
+	
+	<UserPref name="number_of_days" display_name="Number of Days" required="true" default_value="1" />
+	<UserPref name="auto_scroll" display_name="Auto Scroll" datatype="bool" default_value="true"/>
+	
+	<UserPref name="scroll_by" display_name="Scroll By" default_value="item" datatype="enum">
+        <EnumValue value="item" display_value="Row" />
+		<EnumValue value="page" display_value="Page" />
+    </UserPref>
+	<UserPref name="duration" display_name="Duration (in seconds)" required="true" default_value="10" />
+	<UserPref name="inactivity_timeout" display_name="Inactivity Timeout (in seconds)" required="true" default_value="20" />
+	
+	<UserPref name="column1" display_name="Column 1" default_value="start_time" required="true" datatype="enum">
+		<EnumValue value="start_time" display_value="Start Time" />
+        <EnumValue value="end_time" display_value="End Time" />
+		<EnumValue value="event" display_value="Event" />
+		<EnumValue value="room" display_value="Room" />
+		<EnumValue value="contact" display_value="Contact" />
+		<EnumValue value="roomdescription" display_value="Room Description" />
+    </UserPref>
+	
+	<UserPref name="column2" display_name="Column 2" default_value="end_time" datatype="enum">
+		<EnumValue value="start_time" display_value="Start Time" />
+        <EnumValue value="end_time" display_value="End Time" />
+		<EnumValue value="event" display_value="Event" />
+		<EnumValue value="room" display_value="Room" />
+		<EnumValue value="contact" display_value="Contact" />
+		<EnumValue value="roomdescription" display_value="Room Description" />
+		<EnumValue value="none" display_value="None" />
+    </UserPref>
+	
+	<UserPref name="column3" display_name="Column 3" default_value="event" datatype="enum">
+		<EnumValue value="start_time" display_value="Start Time" />
+        <EnumValue value="end_time" display_value="End Time" />
+		<EnumValue value="event" display_value="Event" />
+		<EnumValue value="room" display_value="Room" />
+		<EnumValue value="contact" display_value="Contact" />
+		<EnumValue value="roomdescription" display_value="Room Description" />
+		<EnumValue value="none" display_value="None" />
+    </UserPref>
+	
+	<UserPref name="column4" display_name="Column 4" default_value="room" datatype="enum">
+		<EnumValue value="start_time" display_value="Start Time" />
+        <EnumValue value="end_time" display_value="End Time" />
+		<EnumValue value="event" display_value="Event" />
+		<EnumValue value="room" display_value="Room" />
+		<EnumValue value="contact" display_value="Contact" />
+		<EnumValue value="roomdescription" display_value="Room Description" />
+		<EnumValue value="none" display_value="None" />
+    </UserPref>
+	
+	<UserPref name="column5" display_name="Column 5" default_value="contact" datatype="enum">
+		<EnumValue value="start_time" display_value="Start Time" />
+        <EnumValue value="end_time" display_value="End Time" />
+		<EnumValue value="event" display_value="Event" />
+		<EnumValue value="room" display_value="Room" />
+		<EnumValue value="contact" display_value="Contact" />
+		<EnumValue value="roomdescription" display_value="Room Description" />
+		<EnumValue value="none" display_value="None" />
+    </UserPref>
+	
+	<UserPref name="tableStyle" display_name="Table Style" datatype="string" default_value="font-family:Verdana, Verdana, Geneva, sans-serif;color:rgb(0, 0, 0);font-weight:normal;font-size:16px; padding:5px;" />
+	<UserPref name="headerStyle" display_name="Header Style" datatype="string" default_value="font-family:Verdana, Verdana, Geneva, sans-serif;color:rgb(0, 0, 0);font-weight:normal;font-size:16px;background-color:#972524; padding:5px;" />
+	<UserPref name="col1Style" display_name="Column 1 Style" datatype="hidden" default_value="" />
+	<UserPref name="col2Style" display_name="Column 2 Style" datatype="hidden" default_value="" />
+	<UserPref name="col3Style" display_name="Column 3 Style" datatype="hidden" default_value="" />
+	<UserPref name="col4Style" display_name="Column 4 Style" datatype="hidden" default_value="" />
+	<UserPref name="col5Style" display_name="Column 5 Style" datatype="hidden" default_value="" />
+	
+	
+    <UserPref name="activeBackgroundColor" display_name="Active Tab Background Color" default_value="rgb(211, 211, 211)" datatype="string" />
+    <UserPref name="activeTab_font-style" display_name="Active Tab font" default_value=".activeTab_font-style{font-family:Verdana, Verdana, Geneva, sans-serif;color:rgb(0, 0, 0);font-weight:normal;font-size:18px;}" datatype="string" />
+    <UserPref name="inactiveBackgroundColor" display_name="Inactive Tab Background Color" default_value="transparent" datatype="string" />
+    <UserPref name="inactiveTab_font-style" display_name="Inactive Tab Font" default_value=".inactiveTab_font-style{font-family:Verdana, Verdana, Geneva, sans-serif;color:rgb(0, 0, 0);font-weight:normal;font-size:18px;}" datatype="string" />
+    <UserPref name="showDate" datatype="hidden" default_value="true" />
+    
+    
+    <UserPref name="scrollbarThickness" display_name="Scrollbar Thickness (pixels)" default_value="10" datatype="string" />
+    <UserPref name="scrollbarColor" display_name="Scrollbar Color" default_value="#000000" datatype="string" />
+    <UserPref name="layoutURL" display_name="Layout URL" datatype="string" default_value="http://c752760.r60.cf2.rackcdn.com/Default.xml" />
+    <UserPref name="rsH" display_name="Container Height" datatype="hidden" />
+    <UserPref name="rsW" display_name="Container Width" datatype="hidden" />
+    <Content type="html">
+        <![CDATA[
+        <style type="text/css">
+            body {
+		background-color: transparent;
+	    }
+	    
+	    #container {		
+		width: __UP_rsW__px;
+		height: __UP_rsH__px;
+	    }
+	    	        
+	    .active {
+		
+		background: __UP_activeBackgroundColor__;
+	    }
+	    
+	    .inactive {
+		
+		background: __UP_inactiveBackgroundColor__;
+	    }
+	    
+	    .error {
+		color: red;
+	    }
+		
+		.headerStyle{
+			__UP_headerStyle__
+		}
+		.tableStyle{
+			__UP_tableStyle__
+		}
+		.col1Style{
+			width: 15%;
+			
+		}
+		.col2Style{
+			width: 15%;
+			
+		}
+		.col3Style{	
+			width: 30%;
+			
+		}
+		.col4Style{
+			width: 20%;
+			
+		}
+		.col5Style{
+			width: 20%;
+			
+		}
+		
+	    .tab_font-style{}
+	    
+		__UP_activeTab_font-style__
+		__UP_inactiveTab_font-style__
+		
+		</style>
+    
+	<div id="container">
+	</div>
+	<div id="err" style="width:100%; height:100%; left:0; top:0; visibility:hidden; position:absolute; z-index:1000; text-align:center; vertical-align:middle; display:table-cell; line-height:400px; background-color:Black; color:White;"></div>
+	
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://c752760.r60.cf2.rackcdn.com/rd.lic.js"></script>
+	<script type="text/javascript" src="http://datejs.googlecode.com/svn/trunk/build/date.js"></script>
+	<script type="text/javascript" src="http://www.risedisplaycreative.com/case-vi/jquery.idle-timer.js"></script>
+	<script type="text/javascript" src="http://c752760.r60.cf2.rackcdn.com/soapclient.js"></script>
+	<script type="text/javascript" src="http://c499672.r72.cf2.rackcdn.com/common/RiseGadgets.js"></script>
+	<script type="text/javascript" src="http://c752760.r60.cf2.rackcdn.com/InfiniteScroll.js"></script>
+	<script type="text/javascript" src="http://c499672.r72.cf2.rackcdn.com/common/scroll/jquery.mCustomScrollbar.js"></script>
+	<script type="text/javascript" src="http://c499672.r72.cf2.rackcdn.com/common/scroll/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="http://c499672.r72.cf2.rackcdn.com/common/scroll/jquery.mousewheel.js"></script>
+        <script type="text/javascript">
+            var gadgetPrefs = new gadgets.Prefs();
+		var columns = [];
+		var colStyles = [];
+		var days = [];
+	    var tabIDs = ["dayOne", "dayTwo", "dayThree", "dayFour", "dayFive", "daySix", "daySeven"];
+		var tabID_init = [false,false,false,false,false,false,false];
+		var spanIDs = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
+		var monthStrings = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		var layout;
+		var firstLoad = true;
+		var bRefresh = true;
+		var bRefresh1 = false;
+	    google.load("gdata", "1");
+		google.load('visualization', '1', {packages: ['intensitymap']});
+		var rsW = gadgetPrefs.getInt("rsW");
+		var rsH = gadgetPrefs.getInt("rsH");
+		var scrollbarThickness = gadgetPrefs.getInt("scrollbarThickness");
+		var scrollbarColor = gadgetPrefs.getString("scrollbarColor");
+		var scrollBy = gadgetPrefs.getString("scroll_by");
+		//var scrollBy = "item";
+		var duration = gadgetPrefs.getInt("duration");
+		var autoScroll = gadgetPrefs.getBool("auto_scroll");
+		var isLoading = true;
+		var interactivityTimeout = gadgetPrefs.getInt("inactivity_timeout") * 1000;
+		var isScrollPause = true;
+		var currentIndex = 0;
+		var endIndex = gadgetPrefs.getInt("number_of_days");
+		var interactivityTimerID = null;
+		var interactivityTimerID1 = null;
+		var headerAppend = "";
+	    var displayId = null;
+		var companyId = null;
+		//var interactivityTimerID;
+
+		function dea_callback(r){
+			console.log(r);
+			//alert(r);
+			readyEvent();
+		}
+		
+		function tabScrollPlay(){
+			if(gadgetPrefs.getInt("refresh_interval") > 0){
+				clearTimeout(interactivityTimerID1);
+				interactivityTimerID1 = 
+					setTimeout( function() {
+						var nextTab = currentIndex + 1;
+						if(nextTab >= endIndex){
+							nextTab = 0;
+						}
+						$("#" + spanIDs[nextTab]).click();
+						tabScrollPlay();
+					}, duration * 1000 );
+			}
+		}
+		
+		function hideDays(){
+			var iStart = 0;
+			if(gadgetPrefs.getString("visual_option") == "tabs"){
+				iStart = gadgetPrefs.getInt("number_of_days");
+				if(iStart <= 0){
+					iStart = 0;
+				}
+			} 
+			
+			for (var i = iStart; i < spanIDs.length; i++) {
+					$("#" + spanIDs[i]).hide();
+				}
+		}
+		
+		
+		function getHeaderVal(val, styleNum){
+			var retVal = "";
+			if(val == "start_time"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">Start Time</span>";
+				columns.push("start_time");
+				colStyles.push(styleNum);
+			} else if(val == "end_time"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">End Time</span>";
+				columns.push("end_time");
+				colStyles.push(styleNum);
+			} else if(val == "event"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">Event</span>";
+				columns.push("event");
+				colStyles.push(styleNum);
+			} else if(val == "room"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">Room</span>";
+				columns.push("room");
+				colStyles.push(styleNum);
+			} else if(val == "contact"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">Contact</span>";
+				columns.push("contact");
+				colStyles.push(styleNum);
+			} else if(val == "roomdescription"){
+				retVal = "<span class=\"col" + styleNum + "Style headerStyle\">Room Description</span>";
+				columns.push("roomdescription");
+				colStyles.push(styleNum);
+			} 
+			return retVal;
+		}
+		
+		function buildHeader(){
+			var tableHeader = "";
+			
+			for(var i=1;i<6;i++){
+				var columnVal = gadgetPrefs.getString("column" + i);
+				tableHeader = tableHeader + getHeaderVal(columnVal, i);
+			}
+			
+			return tableHeader;
+		}
+		
+		function initTabs() {
+			var currentDay = Date.today();
+			
+			var tableHeader = buildHeader();
+			headerAppend = "<div class=\"item\" style=\"display: table-row;position: relative; visibility: hidden\">" + tableHeader + "</div>";
+			
+			var tabColletion = $(".tab");
+			tabColletion.each(function (i) {
+				var tabID = tabIDs[i];
+				var spanID = spanIDs[i];
+				var $content = $("#" + tabID + " .scrollContainer1");
+				var $divHeader = $("#" + tabID + " .scrollContainer1 .topBorder div div.item");
+				
+				$divHeader.html(tableHeader);
+				
+				if(gadgetPrefs.getString("visual_option") == "list"){
+					$("#" + tabID).css('display','block');
+					$(".scrollContainer1").css('top','0px');
+				}
+				if (i == 0) {
+					$("#" + spanID).text("Today");
+					//$("span.tab")[i].text("Today");
+				}
+				else {
+					$("#" + spanID).text(currentDay.toString("ddd"));
+					//$("span.tab")[i].text(currentDay.toString("ddd"));
+				}
+				
+				if ($("#" + tabID).hasClass("active")) {
+					$content.css("z-index", 5);
+				}
+				else {
+					//$content.hide();
+				}
+				
+				days[i] = currentDay.toString("ddd");
+				
+				if(gadgetPrefs.getString("visual_option") == "tabs"){
+					$("#" + spanID).click(function() {
+						currentIndex = i;
+						showTab(tabID);
+						return false;
+					});
+					hideDays();
+				} else {
+					hideDays();
+				}
+				//showTab("dayOne");
+				
+				currentDay.setDate(currentDay.getDate() + 1);
+			});
+			
+		}
+
+		function setTimer() {
+			if(gadgetPrefs.getInt("refresh_interval") > 0){
+				setTimeout( function() {
+					bRefresh = true;
+					buildSOAPRequest();
+				}, gadgetPrefs.getInt("refresh_interval") * 60000 );
+			}
+		}
+		
+		function qsort(a) {
+			if (a.length == 0) return [];
+		 
+			//var left = [], right = [], pivot = new Date(a[0].c[3]getElementsByTagName("TimeEventStart")[0].innerHTML.substring(0,19));
+			var left = new Array(), right = new Array(), pivot = new Date(a[0][3].substring(0,19));
+			left.push(new Array());
+			right.push(new Array());
+			var pItem = a[0];
+			for (var i = 1; i < a.length; i++) {
+				//var tmpTime = new Date(a[i].getElementsByTagName("TimeEventStart")[0].innerHTML.substring(0,19));
+				var tmpTime = new Date(a[i][3].substring(0,19));
+				tmpTime.getTime() < pivot.getTime() ? left.push(a[i]) : right.push(a[i]);
+			}
+			left.shift();
+			right.shift();
+			var retArr = new Array();
+			retArr.push(new Array());
+			
+			for (var j = 0; j < left.length; j++) {
+				retArr.push(left[j]);
+			}
+			retArr.push(pItem);
+			retArr.shift();
+			
+			tempArr = qsort(right);
+			for (var j = 0; j < right.length; j++) {
+				retArr.push(right[j]);
+			}
+			
+			return retArr;
+			//return qsort(left).concat(pItem, qsort(right));
+		}
+		
+		function Create2DArray(obj) {
+		  var arr = [];
+
+		  for (var i=0;i<obj.getNumberOfRows();i++) {
+		     arr[i] = [];
+		     for(var j=0;j<obj.getNumberOfColumns();j++){
+			arr[i][j] = obj.getFormattedValue(i,j);
+		     }
+		  }
+
+		  return arr;
+		}
+
+
+		function response(obj) {
+		  //output(obj.text);
+		  //console.log(obj);
+		  if(!firstLoad){
+			scrollPause();
+		  }
+		  
+		  if(bRefresh){
+			bRefresh1 = true;
+			bRefresh = false;
+		  }
+		  showTab("dayOne");
+		  
+		  //var reply = obj.data.firstChild.textContent;
+		  //var d = document.createElement('div');
+		  //d.innerHTML = reply;
+		  
+		  //var data = d.getElementsByTagName("Data");
+		  //var data = obj.G;
+		  var data = Create2DArray(obj);
+		  
+		  var currDate = Date.today();
+		  
+		  //use quicksort to sort data array
+		  data = qsort(data);
+		  for(var i=0;i<data.length;i++)
+		  {
+			/*
+			var roomdescription = data[i].c[2].v;
+			var startTime = new Date(data[i].c[3].v.substring(0,19));
+			var endTime = new Date(data[i].c[4].v.substring(0,19));
+			var startTimeString = getTimeString(startTime);
+			var endTimeString = getTimeString(endTime);
+			var monthString = monthStrings[startTime.getMonth()] + " " + startTime.getDate();
+			var eventName = data[i].c[6].v;
+			var room = data[i].c[29].v;
+			var contact = getContact(data[i].c[19].v);
+			*/
+			
+			var roomdescription = data[i][2];
+			var startTime = new Date(data[i][3].substring(0,19));
+			var endTime = new Date(data[i][4].substring(0,19));
+			var startTimeString = getTimeString(startTime);
+			var endTimeString = getTimeString(endTime);
+			var monthString = monthStrings[startTime.getMonth()] + " " + startTime.getDate();
+			var eventName = data[i][6];
+			var room = data[i][29];
+			var contact = getContact(data[i][19]);
+			
+			var strTabID = getTabToUse(currDate, startTime);
+			if (strTabID > 6){strTabID = 6;}
+			if(!hasExpired(endTime)){
+				appendToTab(strTabID, startTimeString, endTimeString, monthString, eventName, room, contact, roomdescription);
+			}
+		  }
+		  //headerAppend
+		  
+		  if(gadgetPrefs.getString("visual_option") == "list"){
+			$("#" + tabIDs[0] + "Container .customScrollBox .container .content #scrollContainer " + " > .page:last").append(headerAppend);
+		  } else {
+			for (var i = 0; i < tabIDs.length; i++) {
+				$("#" + tabIDs[i] + "Container .customScrollBox .container .content #scrollContainer " + " > .page:last").append(headerAppend);
+			}
+		  }
+		  
+		  
+		  
+		  if(firstLoad){
+			firstLoad = false;
+			readyEvent();
+			configureScrolling();
+			
+			//if(gadgetPrefs.getString("visual_option") == "tabs" && autoScroll){
+			if(autoScroll){
+				tabScrollPlay();
+				//bind click event
+				$(".tab").bind("click", function() {
+					clearTimeout(interactivityTimerID1);
+					interactivityTimerID1 = 
+						setTimeout( function() {
+							if (autoScroll) {
+								var nextTab = currentIndex + 1;
+								if(nextTab >= endIndex){
+									nextTab = 0;
+								}
+								$("#" + spanIDs[nextTab]).click();
+								tabScrollPlay();
+							}
+						}, interactivityTimeout );
+				});
+			} 
+		  }
+		  
+		  firstLoad = false;
+		  isLoading = false;
+		  setTimer();
+		  if(gadgetPrefs.getString("visual_option") == "list" && autoScroll){
+			scrollPlay();
+		  }
+
+			checkHeaderSpacing();
+			if(gadgetPrefs.getString("visual_option") == "tabs"){
+				var iCnt = gadgetPrefs.getInt("number_of_days");
+				var iHeightTotal = 110;
+				iHeightTotal += $("#" + spanIDs[0]).height();
+				iHeightTotal += $(".col1Style").height();
+				
+				if((rsH - iHeightTotal) < 0 ){
+					iHeightTotal = (rsH - iHeightTotal) * -1;
+				}
+				
+				//Style the scrollbar.
+				$(".dragger_wrapper").css({
+					"height": (rsH - iHeightTotal) + "px"
+					
+				});
+				$(".dragger_container").css({
+					"height": (rsH - iHeightTotal) + "px"
+					
+				});
+			}
+		};
+		
+		function checkHeaderSpacing(){
+			var totalWidth = 0;
+			var iTemp = 100 + $("#day1").width();
+			totalWidth = iTemp;
+			totalWidth = totalWidth + ((endIndex - 1) * (iTemp - 20));
+			if(rsW < totalWidth){
+				var iOffset = 20 + $("#day1").height();
+				$(".scrollcontainer1").css('margin-top', iOffset + 'px');
+			}
+		}
+		
+		function getContact(objContact){
+			//var strRet = objContact.innerHTML;
+			var strRet = objContact;
+			//if(objContact.innerHTML.indexOf("altcontact") != -1){
+			//	strRet = objContact.getElementsByTagName("addedby")[0].innerHTML;
+			//} 
+			return strRet;
+		}
+
+		
+		function appendToTab(strTabID, startTimeString, endTimeString, monthString, eventName, room, contact, roomdescription){
+			if(gadgetPrefs.getString("visual_option") == "list"){
+					var contentString = "<div class='item'>";
+					
+					for(var i=0;i<columns.length;i++){
+						var val = columns[i];
+						var retVal = "";
+						if(val == "start_time"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + startTimeString + "</span>";
+						} else if(val == "end_time"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + endTimeString + "</span>";
+						} else if(val == "event"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + eventName + "</span>";
+						} else if(val == "room"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + room + "</span>";
+						} else if(val == "contact"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + contact + "</span>";
+						} else if(val == "roomdescription"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + roomdescription + "</span>";
+						} 
+						contentString += retVal;
+					}
+					contentString += "</div>";
+
+					$("#" + tabIDs[0] + "Container .customScrollBox .container .content #scrollContainer " + " > .page:last").append(contentString);
+				} else {
+					var contentString = "<div class='item'>";
+					for(var i=0;i<columns.length;i++){
+						var val = columns[i];
+						var retVal = "";
+						if(val == "start_time"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + startTimeString + "</span>";
+						} else if(val == "end_time"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + endTimeString + "</span>";
+						} else if(val == "event"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + eventName + "</span>";
+						} else if(val == "room"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + room + "</span>";
+						} else if(val == "contact"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + contact + "</span>";
+						} else if(val == "roomdescription"){
+							retVal = "<span class='col" + colStyles[i] + "Style tableStyle'>" + roomdescription + "</span>";
+						} 
+						contentString += retVal;
+					}
+					contentString += "</div>";
+
+					$("#" + tabIDs[strTabID] + "Container .customScrollBox .container .content #scrollContainer " + " > .page:last").append(contentString);
+				}
+		}
+		
+		function hasExpired(d2){
+			var bRet = false;
+			var t2 = d2.getTime();
+			var t1 = new Date().getTime();
+			if((t2-t1) < 0){
+				bRet = true;
+			}
+			return bRet;
+		}
+		
+		function getTimeString(myDate){
+			var suffix = "AM";
+			var minstring = "";
+			hour = myDate.getHours();
+		    min = myDate.getMinutes();
+			if(hour > 12) {
+				suffix = "PM";
+				hour = hour - 12;
+			} else if(hour == 0){
+				hour = 12;
+			} else if(hour == 12){
+				suffix = "PM";
+			}
+			if (min < 10){
+				minstring = "0" + min;
+			} else {
+				minstring = "" + min;
+			}
+			return ("" + hour + ":" + minstring + " " + suffix);
+		}
+		
+		function getTabToUse(d1, d2) {
+			var t2 = d2.getTime();
+			var t1 = d1.getTime();
+	 
+			return parseInt((t2-t1)/(24*3600*1000));
+		}
+
+
+		function showTab(tabID) {   
+			$(".active").removeClass("active");
+			$(".activeTab_font-style").removeClass("activeTab_font-style");
+			$(".inactive").removeClass("inactive");  
+			$(".inactiveTab_font-style").removeClass("inactiveTab_font-style");  
+			var initIndex;
+			
+			for (var i = 0; i < tabIDs.length; i++) {
+				if(bRefresh1){
+					$("#" + tabIDs[i] + "Container .customScrollBox .container .content #scrollContainer" + " > .page").empty();
+				}
+				if (this.tabIDs[i] == tabID) {
+					initIndex = i;
+					$("#" + tabID + " .tab").addClass("active");
+					$("#" + tabID + " .tab").addClass("activeTab_font-style");
+					$("#" + tabIDs[i] + " .scrollContainer1").show().css("z-index", 5);
+					if(!firstLoad){
+						$("#" + tabIDs[i] + " .scrollContainer1").mCustomScrollbar("vertical", 500, "easeOutCirc", 1, "fixed", "yes", "no", 0);
+					}
+				}
+				else {
+					$("#" + tabIDs[i] + " .tab").addClass("inactive");
+					$("#" + tabIDs[i] + " .tab").addClass("inactiveTab_font-style");
+					$("#" + tabIDs[i] + " .scrollContainer1").hide().css("z-index", 0);
+				}	
+			}
+			bRefresh1 = false;
+			
+			//initialize scrollbars
+			if(!tabID_init[initIndex]){
+				tabID_init[initIndex] = true;
+				
+				var page_height = $("#" + tabIDs[initIndex] + "Container .customScrollBox .container .content #scrollContainer " + " > .page").height();
+				if(page_height == 0){
+					$("#" + tabIDs[initIndex] + "Container .customScrollBox .container").css("height","100%");
+				} else {
+					$("#" + tabIDs[initIndex] + "Container .customScrollBox .container").height(page_height);
+				}
+				$("#" + tabIDs[initIndex] + " .scrollContainer1 .dragger_container").show();
+				$("#" + tabIDs[initIndex] + " .scrollContainer1").mCustomScrollbar("init", "vertical", 500, "easeOutCirc", 1, "fixed", "yes", "no", 0);
+				
+				if (scrollBy != "none") {
+					//bind scrollbar event
+					$("#" + tabIDs[initIndex] + "Container").bind("manual-scroll-y", function(e, top) {
+						//console.log('drag occurred!');
+						$("#scrollContainer").infiniteScroll.pause();
+						clearTimeout(interactivityTimerID);
+						interactivityTimerID = setTimeout(function() {
+							//Scroll back to top and resume auto-scrolling, if applicable.
+							if (scrollBy != "none") {
+								//$("#" + tabIDs[initIndex] + "Container .scrollContainer1").mCustomScrollbar("scrollToY", 0, function() {
+									scrollPlay();
+								//});
+							}
+						}, interactivityTimeout);
+						
+						clearTimeout(interactivityTimerID1);
+						interactivityTimerID1 = 
+							setTimeout( function() {
+								if (autoScroll) {
+									var nextTab = currentIndex + 1;
+									if(nextTab >= endIndex){
+										nextTab = 0;
+									}
+									$("#" + spanIDs[nextTab]).click();
+									tabScrollPlay();
+								}
+							}, interactivityTimeout );
+					});
+					
+				}
+				
+				
+			}
+			
+		}
+
+		function showEntries(){
+			var today = Date.today();
+   
+			//Clear existing entries.
+			//$(".content").each(function (i) {
+			//	$('.eventTable').empty();
+			//}); 
+			
+			for (var i = 0; i < tabIDs.length; i++) {
+				//$content = $("#" + tabIDs[i] + "Container .customScrollBox .container .content #eventTable");
+				if(i==0){
+					for(var cnt1 = 0; cnt1 < 24; cnt1++){
+						$("#" + tabIDs[i] + "Container .customScrollBox .container .content #eventTable" + " > tbody:last").append('<tr><td>Today</td><td>01:00 PM</td><td>05:00 PM</td><td>' + tabIDs[i] + ' General Meeting</td><td>Conference Room</td><td>Raymond</td></tr>');
+					}
+				} 
+				$("#" + tabIDs[i] + "Container .customScrollBox .container .content #eventTable" + " > tbody:last").append('<tr><td>Today</td><td>01:00 PM</td><td>05:00 PM</td><td>' + tabIDs[i] + ' General Meeting</td><td>Conference Room</td><td>Raymond</td></tr>');
+			}
+		}
+		
+		function insertStyles(){
+			var params = {};
+			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+			gadgets.io.makeRequest(gadgetPrefs.getString("layoutURL"), function(obj) {
+				var data = obj.data;
+				var cssNode = document.createElement('style');
+				cssNode.type = 'text/css';
+				cssNode.rel = 'stylesheet';
+				cssNode.media = 'screen';
+				cssNode.title = 'dynamicSheet';
+				cssNode.innerHTML = data.getElementsByTagName("Style")[0].childNodes[1].nodeValue;
+				document.getElementsByTagName("head")[0].appendChild(cssNode);
+				var el1 = data.getElementsByTagName("Navigation")[0].childNodes[1].nodeValue;
+				var el2 = data.getElementsByTagName("Navigation")[0].childNodes[1];
+				var el3 = data.getElementsByTagName("Navigation")[0];
+				$("#container").append(data.getElementsByTagName("Navigation")[0].childNodes[1].nodeValue);
+				
+				if(gadgetPrefs.getString("visual_option") == "list"){
+					$(".content").append(data.getElementsByTagName("Content2")[0].childNodes[1].nodeValue);
+				} else {
+					$(".content").append(data.getElementsByTagName("Content")[0].childNodes[1].nodeValue);
+				}
+				
+				//$("#container").html(el1);
+				initTabs();
+				//showEntries();
+			}, params);
+		}
+		
+		function buildSOAPRequest(){
+			
+			//var opts = {sendMethod: 'xhr'};
+			var currDate = Date.today();
+		    var strStart = currDate.toString('yyyy-MM-dd') + "T00:00:00";
+		    currDate.setDate(currDate.getDate() + (gadgetPrefs.getInt("number_of_days") - 1));
+		    var strEnd = currDate.toString('yyyy-MM-dd') + "T23:59:59"; // + currDate.toGMTString().substr(16, 24);
+			console.log('start date: ' + strStart);
+			console.log('end date: ' + strEnd);
+			var queryURL = 'http://localhost:8080/bookings?buildingId=' + gadgetPrefs.getString("building_id");
+			queryURL = queryURL + '&startDate=' + strStart + '&endDate=' + strEnd;
+			var query = new google.visualization.Query(queryURL);
+			////query.setQuery('select dept, sum(salary) group by dept');
+			query.send(handleQueryResponse); 
+			
+		}
+		
+		function callback(response){
+			console.log(response);
+		}
+		
+		
+		function handleQueryResponse(obj) {
+                
+            if (obj.isError()) {
+				readyEvent();
+			  } else {
+				  var data = obj.getDataTable();
+				  response(data);
+			  }
+        }
+		
+		
+		function configureScrolling() {
+			
+			if(gadgetPrefs.getString("visual_option") == "tabs"){
+				var iCnt = gadgetPrefs.getInt("number_of_days");
+				var iHeightTotal = 120;
+				iHeightTotal += $("#" + spanIDs[0]).height();
+				iHeightTotal += $(".col1Style").height();
+				
+				if((rsH - iHeightTotal) < 0 ){
+					iHeightTotal = (rsH - iHeightTotal) * -1;
+				}
+				//Style the scrollbar.
+				$(".dragger_wrapper").css({
+					"height": (rsH - iHeightTotal) + "px",
+					"width": scrollbarThickness + "px"
+				});
+				$(".dragger_container").css({
+					"height": (rsH - iHeightTotal) + "px",
+					"margin-top": scrollbarThickness / 2 + "px",
+					"margin-right": "0px",
+					"margin-bottom": "0px",
+					"border-left-color": scrollbarColor
+				});
+			} else {
+				//Style the scrollbar.
+				$(".dragger_wrapper").css({
+					"height": (rsH - 120) + "px",
+					"width": scrollbarThickness + "px"
+				});
+				$(".dragger_container").css({
+					"height": (rsH - 120) + "px",
+					"margin-top": scrollbarThickness / 2 + "px",
+					"margin-right": "0px",
+					"margin-bottom": "0px",
+					"border-left-color": scrollbarColor
+				});
+			}
+			$(".dragger").css({
+				"background": scrollbarColor,
+				"width" : scrollbarThickness + "px",
+				"height": scrollbarThickness + "px",
+				"margin-left": - Math.ceil(scrollbarThickness / 2) + "px",
+				"-webkit-border-radius": (scrollbarThickness * 2) + "px",
+				"-moz-border-radius": (scrollbarThickness * 2) + "px",
+				"border-radius": (scrollbarThickness * 2) + "px"
+			});
+			$(".dragger_pressed").css("background", scrollbarColor);
+			
+			if (isTouchDevice()) {
+				$(".customScrollBox").css("overflow", "auto");
+				$(".dragger_container").css("display", "none");
+			}
+			else {
+				var iCnt = gadgetPrefs.getInt("number_of_days");
+				if (iCnt < 1){
+					iCnt = 1;
+				} else if(iCnt > 7) {
+					iCnt = 7;
+				}
+				if(gadgetPrefs.getString("visual_option") == "list"){
+					iCnt = 1;
+				}
+				for (var i = 0; i < iCnt; i++) {
+					//$("#" + spanIDs[i]).hide();
+					var page_height = $("#" + tabIDs[i] + "Container .customScrollBox .container .content #scrollContainer " + " > .page").height();
+					if(page_height == 0){
+						$("#" + tabIDs[i] + "Container .customScrollBox .container").css("height","100%");
+					} else {
+						$("#" + tabIDs[i] + "Container .customScrollBox .container").height(page_height);
+					}
+					$("#" + tabIDs[i] + " .scrollContainer1 .dragger_container").show();
+					$("#" + tabIDs[i] + " .scrollContainer1").mCustomScrollbar("init", "vertical", 500, "easeOutCirc", 1, "fixed", "yes", "no", 0);
+					
+					if (scrollBy != "none") {
+						$("#" + tabIDs[i] + "Container").bind("manual-scroll-y", function(e, top) {
+							//console.log('drag occurred!');
+							$("#scrollContainer").infiniteScroll.pause();
+							clearTimeout(interactivityTimerID);
+							interactivityTimerID = setTimeout(function() {
+								//Scroll back to top and resume auto-scrolling, if applicable.
+								if (scrollBy != "none") {
+									//$("#" + tabIDs[i] + "Container .scrollContainer1").mCustomScrollbar("scrollToY", 0, function() {
+										scrollPlay();
+									//});
+								}
+							}, interactivityTimeout);
+						});
+					}
+				}
+			}
+			
+			//Auto-scrolling.
+			if (scrollBy != "none") {
+				if (isLoading) {
+					$("#scrollContainer").infiniteScroll({
+						scrollBy:       scrollBy,
+						duration:       duration  * 1000
+					});
+
+				}
+				else {
+					scrollPlay();
+				}
+		
+			}
+			
+		}
+		
+		
+		function scrollPlay(tabID) {
+			if (autoScroll && scrollBy != "none") {
+				 $("#scrollContainer").infiniteScroll.start();
+			}
+		}
+		
+		function scrollPause(strTabID){
+			if (autoScroll && scrollBy != "none") {
+				$("#scrollContainer").infiniteScroll.pause();
+			}
+
+		}
+
+            function initialize() {
+				var id = gadgetPrefs.getString("id");
+				if (id) {
+					gadgets.rpc.register("rsparam_set_" + id, setParamCallback);
+					gadgets.rpc.call("", "rsparam_get", null, id, ["displayId", "companyId"]);
+				}
+				insertStyles();
+				buildSOAPRequest();
+				
+            }
+		
+	    function setParamCallback(names, values) {
+			if (names && values && (names instanceof Array) && (values instanceof Array)) {
+				for (var i in names) {
+					if (names[i] == "displayId") {
+						displayId = values[i];
+					} else if (names[i] == "companyId") {
+						companyId = values[i];
+					}
+				}
+				requestLicensing();
+				//loadItemProfilerLayout();
+			}
+		}
+		
+		function requestLicensing(){
+
+			var lic = new rd.Lic("DeanEvans", displayId, companyId, "err");
+			lic.start(function() { });
+		}
+		
+	    function play() {}
+	    
+	    function pause() {}
+	    
+	    function stop() {}
+	    
+            // sends "READY" event to the Viewer
+            function readyEvent() {
+                gadgets.rpc.call('', 'rsevent_ready', null, gadgetPrefs.getString("id"), true, true, true, true, true);
+            }
+            
+            // sends "DONE" event to the Viewer
+            function doneEvent() {
+                gadgets.rpc.call('', 'rsevent_done', null, gadgetPrefs.getString("id"));
+            }
+            
+            gadgets.util.registerOnLoadHandler(initialize);
+        </script>]]>
+</Content>
+</Module>
