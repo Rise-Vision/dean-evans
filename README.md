@@ -1,84 +1,111 @@
-###dean-evans###
-**Copyright © 2010 - May 22, 2014 Rise Vision Incorporated.**
+# dean-evans
 
-Use of this software is governed by the GPLv3 license (reproduced in the LICENSE file).
-
+## Introduction
 
 Dean Evans (www.dea.com) provides room scheduling software. Using the Dean Evans API, the Gadget & app request data from the Dean Evans server to be displayed into a presentation. The Dean Evans EMS Data Service app is responsible for communicating with the Dean Evans EMS Server and then serving the data to Presentation via the Dean Evans Gadget.
 
-**How to get started?** All source code for the Project is included in this repository and organized as follows:
-* EMSInstall - Windows installer, will install Dean Evans EMS Data service (EMSService) on the machine
-* EMSService - Java application, running Jetty server on port 8080. User can configure the EMS server url and access credentials
-* EMSWeb - Java application, responsible for making SOAP connection to EMS server to get all bookings by date
-* EMSGadget - Rise Gadget to display Dean Evans Events
+dean-evans projects is organised as follow:
 
-**To develop on your local machine:**
+ - EMSInstall - Windows installer, will install Dean Evans EMS Data service (EMSService) on the machine
+ - EMSService - Java application, running Jetty server on port 8080. User can configure the EMS server url and access credentials
+ - EMSWeb - Java application, responsible for making SOAP connection to EMS server to get all bookings by date
+ - EMSGadget - Rise Gadget to display Dean Evans Events
 
-To build EMSInstall, you will need NSIS 2.46 on your machine, NSIS 2.46 can be downloaded from, http://nsis.sourceforge.net/Download. Once installed, open the NSIS script compiler and open the file EMSInstall\setup.nsi from the repository.
+## Built With
+- *Eclipse*
+- *Java 1.7*
+- *NSIS 2.46* 
+- *jetty* 
 
-EMSService and EMSWeb are Java Applications. As such, any IDE can be used, but requires JDK 1.6  or higher.
+## Development 
 
-EMSGadget is a Gadget that, when embedded into HTML, captures data from the EMSWeb app and defines how the data is shown. 
+### Dependencies
+* Requires Java SDK which can be downloade and installed via [Oracle Download Page](http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-7-downloads-1956236.html")
+* Requires NSIS 2.46 [NSIS Download Page](http://nsis.sourceforge.net/Download")
 
-**Dean Evans App Supported Functions, Parameters & Fields**
+### Local Development Environment Setup
 
-The Dean Evans EMS Data Service App supports only one function, GetAllBookings.
-The following are required parameters for the GetAllBookings function:
-* Username
-* Password
-* StartDate
-* EndDate
-* BuildingID
+ - Launch Eclipse
+ - import both projects EMSService and EMSWeb.
+ - To debug in eclipse, select EMSService project and choose Debug as Java Application. 
+ - On Next screen "Select java Application" choose "MainForm - com.risedisplay.ems.ui"
 
-Currently, the Gadget will only display the following fields returned from the GetAllBookings function:
+### Creating Installation Package 
 
-* Start Time
-* End Time
-* Event
-* Room
-* Room Description
-* Contact
+ 1. Export EMSService
+ - In Eclipse, export EMSService project as "Runnable JAR file"
+ - Under Launch Configuration choose "MainForm - EMSService"
+ - Under Export Destination enter "EMSInstall\Files\RiseDeanEvansEMSService.jar"
+ - Under Library handling choose "Package required libraries into generated JAR"
 
-**How to configure on local machine**
-1. Install the latest version of Java
+ 2. Export EMSWeb
 
-2. Install the Dean Evans EMS Data Service app. Start the application and click “Configuration”.
-3. Enter the EMS Service URL, Username & Password given to you by Dean Evans.
+- In Eclipse, export EMSWeb project as "WAR file"
+- Under Web project choose "EMSWeb"
+- under Destination enter "EMSInstall\Files\EMSWeb.war"
+- Using any unzip utility, extract EMSWeb.war to "EMSInstall\Files\Web".
+- "EMSInstall\Files\Web" should contain following items
+	 - "META-INF" folder
+	 - "WEB-INF" folder and
+	 - "emsservice.conf" file
+	- Delete "EMSInstall\Files\EMSWeb.war"
+ 
+ 3. Create installation package
+ - Run EMSInstall\setup.nsi in NSIS to create "RiseDeanEvansEMSServiceInstall.exe" executable
 
-Note: There is no field to define the required fields of StartDate, EndDate or BuildingID. These variables are defined in the Gadget settings.
 
-You can test your configuration by copying and pasting the URL below into the a browser on the same machine the app was installed on. You can define the Building ID, StartDate & EndDate in the URL. Simply edit the URL for the values you wish: http://127.0.0.1:8080/bookings?buildingId=1&startDate=2011-12-14T00:00:00&endDate=2011-12-14T23:59:59
 
-The response should be a page with the returned fields in addition to actual data from the EMS server.
+  
 
+### Run Local
+Run "RiseDeanEvansEMSServiceInstall.exe" to install the EMS on your local machine.
+
+### Configuration
+
+####EMS Service Configuration
+ 1. Start the application
+ 2. Click on Configuration
+ 3. Enter the EMS Service URL, Username & Password
+ 4. Test the app by copying and pasting this [URL](http://www.google.com/url?q=http%3A%2F%2F127.0.0.1%3A8080%2Fbookings%3FbuildingId%3D1%26startDate%3D2011-12-14T00%3A00%3A00%26endDate%3D2011-12-14T23%3A59%3A59&sa=D&sntz=1&usg=AFQjCNFEu1BFFTBGlRWmk_usi3RdTlipJg) into the a browser on the same machine the app is running on. You can define the Building ID, StartDate & EndDate in the URL. Simply edit the URL for the values you wish. The response should be a page with the returned fields in addition to actual data from the EMS server, looking like [this](http://www.google.com/url?q=http%3A%2F%2Fscreencast.com%2Ft%2FHDnwj5JaE&sa=D&sntz=1&usg=AFQjCNHOxZiU0p3bKUQ-VlD3l3k2TQicLg)
+
+####Rise Dean Evans EMS Data Service Gadget Configuration:
+Gadget XML can be stored at any online repository. Gadget can be added in the Company or directly to the Presentation as a Gadget using URL.
+
+ - Add the Gadget to a Presentation.
+ - Specify the building ID, Number of Days and other options in the Gadget, like in [this example](http://www.google.com/url?q=http%3A%2F%2Fscreencast.com%2Ft%2FAq7toiXxA&sa=D&sntz=1&usg=AFQjCNFA0dO9EO_edcXocB86nli0re4tpw).
+ - The Gadget should populate with data delivered from the App.
+
+## Submitting Issues 
+If you encounter problems or find defects we really want to hear about them. If you could take the time to add them as issues to this Repository it would be most appreciated. When reporting issues please use the following format where applicable:
+
+**Reproduction Steps**
+
+1. did this
+2. then that
+3. followed by this (screenshots / video captures always help)
+
+**Expected Results**
+
+What you expected to happen.
+
+**Actual Results**
+
+What actually happened. (screenshots / video captures always help)
+
+## Contributing
+All contributions are greatly appreciated and welcome! If you would first like to sound out your contribution ideas please post your thoughts to our [community](http://community.risevision.com), otherwise submit a pull request and we will do our best to incorporate it
+
+
+## Resources
 If you have any questions or problems please don't hesitate to join our lively and responsive community at http://community.risevision.com.
 
 If you are looking for user documentation on Rise Vision please see http://www.risevision.com/help/users/
 
-
-If you would like more information on developing applications for Rise Vision please visit http://www.risevision.com/help/developers/.
-
-
-And if you are **considering contributing to this open source project**, our favourite option, we have 3 good reasons why we released this code under version 3 of the GNU General Public License, and we think they are 3 good reasons for why you should get involved too:
-
-* Together we can make something far better than we could on our own.
-
-* If you want to use our code to make something that is specific to you, and that doesn’t fit with what we want to do, we don’t want to get in your way. Take our code and make just what you need.
-
-* We know that some of you nervous types worry about what happens if our company gets taken out in the zombie apocalypse. We get it, and neither one of us wants to deal with that delicate question of software escrow agreements for the “just in case we kick the bucket scenario”. No worries! We made it easy. No fuss, no cost, no lawyers! We published the software here. Have at it.
+If you would like more information on developing applications for Rise Vision please visit http://www.risevision.com/help/developers/. 
 
 
-3 compelling reasons for why you should actively join our project.
-
-Together we can make something better than either of us could on our own.
-
-If you have something completely different in mind, no problem, take our code, fork it, and make what you need, but respect the open source movement, and our license, and keep it open.
 
 
-Become a zombie crusader!
+**Facilitator**
 
-
-Are we missing something? Something could be better? Jump in, branch our code, make what you want, and send us a Pull Request. If it fits for both of us then of course we will accept it, maybe with a tweak or two, test it, and deploy it. If it doesn’t fit, no worries, just fork our code and create your own specialized application for your specific needs. Or, if you’re just feeling paranoid, download the code, and put it under your mattress.
-
-
-**Either way, welcome to our project!**
+[Muhammad Farooq](https://github.com/mfarooq2000 "Muhammad Farooq")
