@@ -12,50 +12,62 @@ dean-evans projects is organised as follow:
  - EMSGadget - Rise Gadget to display Dean Evans Events
 
 ## Built With
-- *Eclipse*
-- *Java 1.7*
-- *NSIS 2.46* 
+- [Eclipse IDE for Java EE Developers](http://www.eclipse.org/downloads/)
+- [Java 1.7](http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-7-downloads-1956236.html)
+- [NSIS 2.4](http://nsis.sourceforge.net/Download)
 - *jetty* 
 
-## Development 
+## Development
 
 ### Dependencies
 * Requires Java SDK which can be downloade and installed via [Oracle Download Page](http://www.oracle.com/technetwork/java/javaee/downloads/java-ee-sdk-7-downloads-1956236.html")
 * Requires NSIS 2.46 [NSIS Download Page](http://nsis.sourceforge.net/Download")
+* Required Jetty libraries are included in repository
 
-### Local Development Environment Setup
+#### EMS Web and EMS Service
 
- - Launch Eclipse
- - import both projects EMSService and EMSWeb.
- - To debug in eclipse, select EMSService project and choose Debug as Java Application. 
- - On Next screen "Select java Application" choose "MainForm - com.risedisplay.ems.ui"
+To build Java projects, you will need Eclipse on your machine. In Eclipse create a new workspace. Import the EMSWeb from /EMSWeb and EMS Service from /EMSService into Eclipse.
 
-### Creating Installation Package 
+1. Select File menu
+2. Select Import
+3. Under General, select "Existing Projects into Workspace"
+4. Select the root directory for whichever project you want to import. 
 
- 1. Export EMSService
- - In Eclipse, export EMSService project as "Runnable JAR file"
- - Under Launch Configuration choose "MainForm - EMSService"
- - Under Export Destination enter "EMSInstall\Files\RiseDeanEvansEMSService.jar"
- - Under Library handling choose "Package required libraries into generated JAR"
+#### To Debug EMS project in Eclipse
 
- 2. Export EMSWeb
+1. Right click on EMSService project in project Explorer
+2. Select Debug as
+3. Select Java Application
+4. Select MainForm - com.risedisplay.ems.ui
+5. Select OK
 
-- In Eclipse, export EMSWeb project as "WAR file"
-- Under Web project choose "EMSWeb"
-- under Destination enter "EMSInstall\Files\EMSWeb.war"
-- Using any unzip utility, extract EMSWeb.war to "EMSInstall\Files\Web".
-- "EMSInstall\Files\Web" should contain following items
+#### When you are ready, build, export the projects and create Installation Package
+
+##### Export EMSService
+
+1. In Eclipse, Right Click on EMSService project in project Explorer
+2. Click Export
+3. From the Java option, select "Runnable Jar File"
+4. Under Launch Configuration choose "MainForm - EMSService"
+5. Under export destination enter "EMSInstall\Files\RiseDeanEvansEMSService.jar"
+6. Under Library handling choose "Package required libraries into generated JAR"
+
+##### Export EMSWeb
+
+ 1. In Eclipse, Right Click on EMSWeb project in project Explorer
+ 2. Click Export and click "WAR file"
+ 3. Under Web project choose "EMSWeb"
+ 4. under Destination enter "EMSInstall\Files\EMSWeb.war"
+ 5. Using any unzip utility, extract EMSWeb.war to 
+ 6. "EMSInstall\Files\Web" should contain following items
 	 - "META-INF" folder
 	 - "WEB-INF" folder and
 	 - "emsservice.conf" file
-	- Delete "EMSInstall\Files\EMSWeb.war"
- 
- 3. Create installation package
- - Run EMSInstall\setup.nsi in NSIS to create "RiseDeanEvansEMSServiceInstall.exe" executable
+ 7. Delete "EMSInstall\Files\EMSWeb.war"
 
+##### Create Installation Package
 
-
-  
+ 1. Run EMSInstall\setup.nsi in NSIS to create "RiseDeanEvansEMSServiceInstall.exe" executable
 
 ### Run Local
 Run "RiseDeanEvansEMSServiceInstall.exe" to install the EMS on your local machine.
@@ -108,4 +120,4 @@ If you would like more information on developing applications for Rise Vision pl
 
 **Facilitator**
 
-[Muhammad Farooq](https://github.com/mfarooq2000 "Muhammad Farooq")
+[Alan Clayton](https://github.com/alanclayton "Alan Clayton")
